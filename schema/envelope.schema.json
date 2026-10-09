@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pilgrimagesoftware/Knot-Library/master/schema/envelope.schema.json",
+  "title": "Knot-Library item envelope",
+  "description": "Front matter fields shared by every kind of library item. A kind's schema composes this one and may add fields of its own.",
+  "type": "object",
+  "required": ["id", "title", "description"],
+  "properties": {
+    "id": {
+      "description": "The item's permanent identity: a UUID in canonical lowercase hyphenated form. Never changes once merged, and never reused.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "title": {
+      "description": "The item's name as Knot shows it. One line.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[^\\r\\n]*$"
+    },
+    "description": {
+      "description": "A one-line, plain-text summary Knot shows in lists.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^\\r\\n]*$"
+    },
+    "tags": {
+      "description": "Up to ten lowercase tags.",
+      "type": "array",
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]{1,32}$"
+      }
+    },
+    "authors": {
+      "description": "Credits: a GitHub handle (@name) or a free-text name each.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[^\\r\\n]*$"
+      }
+    }
+  }
+}

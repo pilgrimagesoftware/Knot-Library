@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pilgrimagesoftware/Knot-Library/master/schema/persona.schema.json",
+  "title": "Knot-Library persona front matter",
+  "description": "A persona: the body is its instructions, imported as Persona.instructions; title is imported as Persona.name. This kind adds no fields to the envelope.",
+  "$ref": "envelope.schema.json",
+  "unevaluatedProperties": false
+}

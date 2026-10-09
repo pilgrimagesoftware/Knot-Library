@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pilgrimagesoftware/Knot-Library/master/schema/index.schema.json",
+  "title": "Knot-Library index",
+  "description": "index.json: every item's metadata, generated after merge. Clients ignore kinds and item fields they don't recognise; removing or changing a field's meaning increments format.",
+  "type": "object",
+  "required": ["format", "commit", "generatedAt", "kinds", "items"],
+  "properties": {
+    "format": { "const": 1 },
+    "commit": {
+      "description": "The full SHA of the commit whose content this index describes. Fetch items at this commit.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "generatedAt": {
+      "description": "When the index was generated, RFC 3339 in UTC.",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "kinds": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["directory", "count"],
+        "properties": {
+          "directory": { "type": "string" },
+          "count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "id", "slug", "title", "description", "tags", "authors", "path", "size", "sha256"],
+        "properties": {
+          "kind": { "type": "string" },
+          "id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" },
+          "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64 },
+          "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "description": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "authors": { "type": "array", "items": { "type": "string" } },
+          "path": { "type": "string", "pattern": "^[a-z0-9-]+/[a-z0-9-]+\\.md$" },
+          "size": { "type": "integer", "minimum": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

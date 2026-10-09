@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pilgrimagesoftware/Knot-Library/master/schema/kinds.schema.json",
+  "title": "Knot-Library kind registry",
+  "description": "Maps each kind name (singular) to its top-level directory (plural) and the schema its front matter is checked against. Adding a kind is an entry here, a directory and a schema.",
+  "type": "object",
+  "minProperties": 1,
+  "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" },
+  "additionalProperties": {
+    "type": "object",
+    "required": ["directory", "schema"],
+    "properties": {
+      "directory": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+      "schema": { "type": "string", "pattern": "^schema/[a-z0-9-]+\\.schema\\.json$" }
+    },
+    "additionalProperties": false
+  }
+}

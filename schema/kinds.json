@@ -1,0 +1,10 @@
+{
+  "persona": {
+    "directory": "personas",
+    "schema": "schema/persona.schema.json"
+  },
+  "prompt": {
+    "directory": "prompts",
+    "schema": "schema/prompt.schema.json"
+  }
+}
