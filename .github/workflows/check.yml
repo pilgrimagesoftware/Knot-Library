@@ -22,7 +22,7 @@ jobs:
           # The identity rules read deleted items' ids from history.
           fetch-depth: 0
 
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           enable-cache: false
 
