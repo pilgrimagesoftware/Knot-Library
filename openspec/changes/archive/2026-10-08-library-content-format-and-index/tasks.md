@@ -33,8 +33,8 @@
 
 ## 5. Workflows
 
-- [ ] 5.1 Add `.github/workflows/check.yml` on `pull_request`: checkout with `fetch-depth: 0`, install `uv`, run `check --base origin/${{ github.base_ref }} --format github` and `index --dry-run`, and fail if the diff touches `index.json` and the PR author is not the CI app; verify with a test PR that has a deliberately bad persona (the check fails with an annotation on the file) and then a fixed one (the check passes)
-- [ ] 5.2 Add `.github/workflows/index.yml` on `push` to the default branch, with paths `personas/**`, `prompts/**`, `schema/**` and `tools/**` (never `index.json`), plus `workflow_dispatch` and `concurrency: { group: index, cancel-in-progress: false }`. It generates, then when `--changed` reports a change, commits `index.json` with GraphQL `createCommitOnBranch` (with `expectedHeadOid`) using a `PSW_CI_APP_ID` / `PSW_CI_PRIVATE_KEY` app token; verify the first merge produces a verified bot commit adding `index.json` and that commit does not start another run
+- [x] 5.1 Add `.github/workflows/check.yml` on `pull_request`: checkout with `fetch-depth: 0`, install `uv`, run `check --base origin/${{ github.base_ref }} --format github` and `index --dry-run`, and fail if the diff touches `index.json` and the PR author is not the CI app; verify with a test PR that has a deliberately bad persona (the check fails with an annotation on the file) and then a fixed one (the check passes)
+- [x] 5.2 Add `.github/workflows/index.yml` on `push` to the default branch, with paths `personas/**`, `prompts/**`, `schema/**` and `tools/**` (never `index.json`), plus `workflow_dispatch` and `concurrency: { group: index, cancel-in-progress: false }`. It generates, then when `--changed` reports a change, commits `index.json` with GraphQL `createCommitOnBranch` (with `expectedHeadOid`) using a `PSW_CI_APP_ID` / `PSW_CI_PRIVATE_KEY` app token; verify the first merge produces a verified bot commit adding `index.json` and that commit does not start another run
 - [x] 5.3 Confirm the `PSW_CI_APP_ID` and `PSW_CI_PRIVATE_KEY` secrets exist on Knot-Library and the app is installed on the repository; verify with `gh secret list -R pilgrimagesoftware/Knot-Library` and a successful `workflow_dispatch` run
 - [x] 5.4 Describe both workflows in `CONTRIBUTING.md` (why the index is never edited by hand, and how to re-run the regeneration); verify the doc links resolve on GitHub
 
@@ -46,5 +46,5 @@
 
 ## 7. End-to-end verification
 
-- [ ] 7.1 After the change merges, verify the published contract from outside: fetch the raw `index.json`, check it lists 7 personas and 3 prompts, fetch one item at the index's `commit` and match its SHA-256, then repeat the index request with `If-None-Match` and get HTTP 304
-- [ ] 7.2 Merge a follow-up PR that edits one persona's description, and verify that a new index commit appears with the updated description and a new `sha256` for that item only
+- [x] 7.1 After the change merges, verify the published contract from outside: fetch the raw `index.json`, check it lists 7 personas and 3 prompts, fetch one item at the index's `commit` and match its SHA-256, then repeat the index request with `If-None-Match` and get HTTP 304
+- [x] 7.2 Merge a follow-up PR that edits one persona's description, and verify that a new index commit appears with the updated description and a new `sha256` for that item only
