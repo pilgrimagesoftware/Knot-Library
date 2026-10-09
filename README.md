@@ -32,6 +32,14 @@ commit in the URL:
 [`schema/index.schema.json`](schema/index.schema.json) describes the format.
 The index is generated after every merge and is never edited by hand.
 
+## Your own library
+
+You don't have to publish here to share items. A library is any directory
+with this layout and a generated `index.json`, and Knot can import from one
+on GitHub, on a web server or in a folder on your computer.
+[Making your own library](docs/your-own-library.md) explains how to create
+one, generate its index, and add it to Knot.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
