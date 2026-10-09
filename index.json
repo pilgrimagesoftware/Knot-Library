@@ -1,0 +1,174 @@
+{
+  "format": 1,
+  "commit": "ae76eb90848811cfb96825251c9bbb237ed3d3a2",
+  "generatedAt": "2026-10-09T03:21:37Z",
+  "kinds": {
+    "persona": {
+      "directory": "personas",
+      "count": 7
+    },
+    "prompt": {
+      "directory": "prompts",
+      "count": 3
+    }
+  },
+  "items": [
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000006",
+      "slug": "dave-farley",
+      "title": "Dave Farley",
+      "description": "Continuous delivery: always releasable, tested at every level, fast feedback.",
+      "tags": [
+        "continuous-delivery",
+        "testing",
+        "automation"
+      ],
+      "authors": [],
+      "path": "personas/dave-farley.md",
+      "size": 600,
+      "sha256": "19f432012002b1640a1973d8bf001aec9a9b80981e2e488c4e08cca058b90f30"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000005",
+      "slug": "john-carmack",
+      "title": "John Carmack",
+      "description": "Deep technical focus: optimize where it matters, linear code, assertions and static analysis.",
+      "tags": [
+        "performance",
+        "pragmatism",
+        "static-analysis"
+      ],
+      "authors": [],
+      "path": "personas/john-carmack.md",
+      "size": 571,
+      "sha256": "95dc9a58eecb34e93330580be422e259fdfd0d055e15638f6521d4bbc95d5274"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000001",
+      "slug": "kent-beck",
+      "title": "Kent Beck",
+      "description": "Test-driven, small steps: write the simplest thing that works, then refactor.",
+      "tags": [
+        "tdd",
+        "refactoring",
+        "simplicity"
+      ],
+      "authors": [],
+      "path": "personas/kent-beck.md",
+      "size": 489,
+      "sha256": "efae34d30ff4730ea913c38946ccf71e4b072aa3e0fe050c8cc3205c65e51d83"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000003",
+      "slug": "linus-torvalds",
+      "title": "Linus Torvalds",
+      "description": "Pragmatic and direct: simple code, real performance, data structures over abstraction.",
+      "tags": [
+        "performance",
+        "pragmatism",
+        "simplicity"
+      ],
+      "authors": [],
+      "path": "personas/linus-torvalds.md",
+      "size": 552,
+      "sha256": "096caf85ac9a6ab35053ff78848fefacd2b4cc5507697b09d67b4c5f60b3a3fd"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000002",
+      "slug": "martin-fowler",
+      "title": "Martin Fowler",
+      "description": "Readability first: clear names, well-chosen patterns and continuous refactoring.",
+      "tags": [
+        "refactoring",
+        "readability",
+        "design-patterns"
+      ],
+      "authors": [],
+      "path": "personas/martin-fowler.md",
+      "size": 556,
+      "sha256": "a0b147187e674a3806b51c336be60b92e83c75c2ece5d8a894ccd59f6bb0759a"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000007",
+      "slug": "orchestrator",
+      "title": "Orchestrator",
+      "description": "Coordinates other agents: finds who is available, plans a task graph and dispatches it.",
+      "tags": [
+        "orchestration",
+        "planning",
+        "multi-agent"
+      ],
+      "authors": [],
+      "path": "personas/orchestrator.md",
+      "size": 1292,
+      "sha256": "6cbead5edfa97b6f75e5e395227b110d5335dbe62713f602feb8dc9e33148cb3"
+    },
+    {
+      "kind": "persona",
+      "id": "a1000001-0000-0000-0000-000000000004",
+      "slug": "uncle-bob",
+      "title": "Uncle Bob",
+      "description": "Clean Code discipline: SOLID, small single-purpose functions and intention-revealing names.",
+      "tags": [
+        "clean-code",
+        "solid",
+        "discipline"
+      ],
+      "authors": [],
+      "path": "personas/uncle-bob.md",
+      "size": 541,
+      "sha256": "40515c2090e46089680a00beddb06ea55c431f8885872fcb4ec44232bf300f53"
+    },
+    {
+      "kind": "prompt",
+      "id": "399d4053-a1e4-4266-a847-de5afadb4caa",
+      "slug": "code-review",
+      "title": "Code review",
+      "description": "Review the changes on the current branch for correctness, clarity and missing tests.",
+      "tags": [
+        "review",
+        "quality"
+      ],
+      "authors": [],
+      "path": "prompts/code-review.md",
+      "size": 643,
+      "sha256": "2e7985a5740d8fa851b00ca55fd2f177192bad0b2325f0925d0443902b745102"
+    },
+    {
+      "kind": "prompt",
+      "id": "07513015-cd20-4846-98e7-74878b5ffca7",
+      "slug": "handoff-notes",
+      "title": "Handoff notes",
+      "description": "Write notes that let another agent or person pick up this work without asking questions.",
+      "tags": [
+        "handoff",
+        "documentation"
+      ],
+      "authors": [],
+      "path": "prompts/handoff-notes.md",
+      "size": 766,
+      "sha256": "0c92574b04d2961b5b813b58ee7c7db106f82db627ce15b5eb5795d99f03c0e3"
+    },
+    {
+      "kind": "prompt",
+      "id": "47b4ba3e-1145-4d5f-9f4b-da17888055c3",
+      "slug": "standup-summary",
+      "title": "Standup summary",
+      "description": "Summarize recent work in this folder as a short standup update.",
+      "tags": [
+        "standup",
+        "status"
+      ],
+      "authors": [],
+      "path": "prompts/standup-summary.md",
+      "size": 572,
+      "sha256": "9e49aca62cba812dfab8021ee65f1dad276ff7dee8dd2cc2579fbe6976c8bd2b"
+    }
+  ]
+}
