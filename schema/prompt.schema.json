@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pilgrimagesoftware/Knot-Library/master/schema/prompt.schema.json",
+  "title": "Knot-Library prompt front matter",
+  "description": "A prompt: the body is its text, imported as Prompt.text; title is imported as Prompt.name. The body may use Knot's {{...}} prompt variables. This kind adds no fields to the envelope.",
+  "$ref": "envelope.schema.json",
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,43 @@
+# Validates every pull request against the content format and the identity
+# rules. See CONTRIBUTING.md.
+name: Check
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      BASE: origin/${{ github.base_ref }}
+      AUTHOR: ${{ github.event.pull_request.user.login }}
+      # The PSW CI app commits index.json; nobody else may.
+      CI_APP: psw-ci[bot]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The identity rules read deleted items' ids from history.
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+
+      - name: index.json is not edited by hand
+        run: |
+          if [ "$AUTHOR" != "$CI_APP" ] && [ -n "$(git diff --name-only "$BASE...HEAD" -- index.json)" ]; then
+            echo "::error file=index.json::index.json is generated after merge by the Index workflow. Drop it from this pull request."
+            exit 1
+          fi
+
+      - name: Check content
+        run: uv run tools/library.py check --base "$BASE" --format github
+
+      - name: Generate index
+        run: uv run tools/library.py index --dry-run > /dev/null
+
+      - name: Test tools
+        run: uv run --with pytest --with pyyaml --with jsonschema pytest tools/tests

@@ -1,0 +1,82 @@
+# Regenerates index.json after content reaches the default branch, and
+# commits it as the PSW CI app. See CONTRIBUTING.md.
+name: Index
+
+on:
+  push:
+    # Never index.json: the index commit must not start another run.
+    paths:
+      - "personas/**"
+      - "prompts/**"
+      - "schema/**"
+      - "tools/**"
+  workflow_dispatch:
+
+# Runs queue rather than cancel, and each regenerates from the branch head,
+# so the last run's index describes everything merged.
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: ${{ github.event.repository.default_branch }}
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app
+        with:
+          app-id: ${{ secrets.PSW_CI_APP_ID }}
+          private-key: ${{ secrets.PSW_CI_PRIVATE_KEY }}
+          permission-contents: write
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+
+      - name: Generate index
+        id: generate
+        run: |
+          status=0
+          uv run tools/library.py index --changed || status=$?
+          case "$status" in
+            0) uv run tools/library.py index
+               echo "changed=true" >> "$GITHUB_OUTPUT" ;;
+            1) echo "index.json already matches the content; nothing to commit."
+               echo "changed=false" >> "$GITHUB_OUTPUT" ;;
+            *) exit "$status" ;;
+          esac
+
+      # createCommitOnBranch makes a commit GitHub signs, and fails if the
+      # branch moved since checkout; the run queued by that newer push then
+      # regenerates from the new head.
+      - name: Commit index.json
+        if: steps.generate.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: |
+          base64 -w0 index.json > "$RUNNER_TEMP/index.b64"
+          jq -n \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg branch "$BRANCH" \
+            --arg head "$(git rev-parse HEAD)" \
+            --rawfile contents "$RUNNER_TEMP/index.b64" \
+            '{
+              query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid url } } }",
+              variables: { input: {
+                branch: { repositoryNameWithOwner: $repo, branchName: $branch },
+                expectedHeadOid: $head,
+                message: { headline: "chore(index): regenerate index.json" },
+                fileChanges: { additions: [ { path: "index.json", contents: $contents } ] }
+              } }
+            }' > "$RUNNER_TEMP/commit.json"
+          gh api graphql --input "$RUNNER_TEMP/commit.json" --jq '.data.createCommitOnBranch.commit.url'
