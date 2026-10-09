@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "commit": "ae76eb90848811cfb96825251c9bbb237ed3d3a2",
-  "generatedAt": "2026-10-09T03:21:37Z",
+  "commit": "20a7967817710527d8ff96a717ec1d113d2908ef",
+  "generatedAt": "2026-10-09T03:24:27Z",
   "kinds": {
     "persona": {
       "directory": "personas",
@@ -18,7 +18,7 @@
       "id": "a1000001-0000-0000-0000-000000000006",
       "slug": "dave-farley",
       "title": "Dave Farley",
-      "description": "Continuous delivery: always releasable, tested at every level, fast feedback.",
+      "description": "Continuous delivery: always releasable, tested at every level, with fast feedback loops.",
       "tags": [
         "continuous-delivery",
         "testing",
@@ -26,8 +26,8 @@
       ],
       "authors": [],
       "path": "personas/dave-farley.md",
-      "size": 600,
-      "sha256": "19f432012002b1640a1973d8bf001aec9a9b80981e2e488c4e08cca058b90f30"
+      "size": 611,
+      "sha256": "5a5e1d9649f4f6dc523781aeae717fe39fd1700bf7e661461a93242e0b9c731c"
     },
     {
       "kind": "persona",
