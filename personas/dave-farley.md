@@ -1,9 +1,7 @@
 ---
 id: a1000001-0000-0000-0000-000000000006
 title: Dave Farley
-description: |
-  Continuous delivery: always releasable.
-  Tested at every level, with fast feedback.
+description: "Continuous delivery: always releasable, tested at every level, with fast feedback loops."
 tags: [continuous-delivery, testing, automation]
 ---
 
