@@ -5,10 +5,8 @@ repository's format, not just from Knot-Library. You might want one for a
 team's shared personas, for prompts you don't want to publish, or to try
 items out before you contribute them here.
 
-> **Status:** Knot's support for libraries other than Knot-Library is
-> proposed in
-> [Knot-App#214](https://github.com/pilgrimagesoftware/Knot-App/pull/214)
-> and has not shipped yet. The format and tools described here work today.
+> **Status:** Knot 1.28.0 and later can import from libraries other than
+> Knot-Library.
 
 ## What a library is
 
@@ -19,16 +17,16 @@ A library is a directory that holds:
   directory per kind (`personas/`, `prompts/`)
 
 Knot reads the index first, then reads only the items you choose to import.
-Before importing an item, it checks that the item's bytes match the hash in
+Before importing an item, it checks that the item's size and SHA-256 match
 the index.
 
 Knot can read a library from three kinds of location:
 
-| Location | You give Knot | Knot reads |
+| Kind | You give Knot | Knot reads |
 | --- | --- | --- |
-| GitHub repository | `owner/repo`, and a branch if it isn't the default | `https://raw.githubusercontent.com/<owner>/<repo>/<branch>/index.json`, then each item at the commit the index names |
-| Web address | the `https://` URL of the directory that holds `index.json` | `<url>/index.json`, then `<url>/<path>` for each item |
-| Folder | a directory on your computer | `<folder>/index.json`, then `<folder>/<path>` for each item |
+| GitHub | `owner/repo` (not a full URL), and optionally a branch | `https://raw.githubusercontent.com/<owner>/<repo>/<branch>/index.json`, using the repository's default branch if you give none, then each item at the commit the index names |
+| Web | the `https://` URL of the directory that holds `index.json`, with no trailing slash | `<url>/index.json`, then `<url>/<path>` for each item |
+| Folder | a directory on your computer, chosen with a folder picker | `<folder>/index.json`, then `<folder>/<path>` for each item |
 
 ## Create one
 
@@ -122,21 +120,31 @@ This repository's workflows can do the checking and indexing for you:
 
 ## Use it in Knot
 
-1. Open the Import window: **File > Import…**, or **Import from Library…**
-   in the Personas or Prompts window.
-2. In the **Library** section, choose **Add Location**. Give the library a
-   name, pick its kind, and enter the repository, the web address or the
-   folder.
-3. Choose the library in the section's picker. Knot reads its index and
-   lists its personas and prompts.
-4. Tick the items you want and import them.
+1. Open the Import window: **File > Import…**, or the **Import from
+   Library…** button (a download icon) in the Personas or Prompts window.
+2. On the **Library** tab, click the **+** button (**Add a location**). In
+   **Add a Library Location**, enter a **Name** and pick **GitHub**,
+   **Web** or **Folder**:
+   - **GitHub:** enter `owner/repo` and, if it isn't the default branch, a
+     branch.
+   - **Web:** enter the `https://` address.
+   - **Folder:** click **Choose Folder…** and pick the library's directory.
+
+   **Add** stays disabled until the name is filled in and the location is
+   in the right form. Knot doesn't check that it can reach the location
+   until you add it.
+3. Knot selects the new library and reads its index. To switch libraries
+   later, click a library's name in the row at the top of the Library
+   section. Knot then lists that library's personas and prompts.
+4. Tick the items you want, then click **Import**.
 
 A persona's instructions and a prompt's text go into what your agents are
 told, so only add libraries you trust.
 
-Knot remembers saved locations, and you can rename or remove them from the
-same section. Removing a location doesn't remove anything you imported from
-it. Knot-Library is always available and can't be removed.
+Knot remembers saved locations. To rename or remove one, select it and use
+the **Rename this location** or **Remove this location** button next to
+**+**. Removing a location doesn't remove anything you imported from it.
+Knot-Library is always available and can't be renamed or removed.
 
 ## Changing items later
 
@@ -151,7 +159,7 @@ it. Knot-Library is always available and can't be removed.
 
 | What Knot says | Why | Fix |
 | --- | --- | --- |
-| It couldn't reach the library | Wrong address, the repository is private, or no network | Check the location, and open `index.json` in a browser at the address Knot uses |
-| An item is unreadable | Its bytes don't match the index: the item changed after the index was generated, or a GitHub index names a commit without them | Commit the items, regenerate the index, commit it |
-| The library needs a newer Knot | The index's `format` is newer than your Knot supports | Update Knot, or generate the index with the tool version your Knot supports |
-| An item is already in Knot | Knot has a persona or prompt with that `id`, perhaps from another library | Expected, unless you copied an id; give your item a new UUID |
+| "Couldn't reach this location." | Wrong address, the repository is private, no network, or `index.json` is missing or malformed | Check the location, and open `index.json` in a browser at the address Knot uses, then click **Retry** |
+| An item is listed under "Could not read" after an import | Its bytes don't match the index's size and hash: the item changed after the index was generated, or a GitHub index names a commit without them | Commit the items, regenerate the index, commit it |
+| "This library needs a newer Knot." | The index's `format` isn't one your Knot supports | Update Knot, or generate the index with the tool version your Knot supports |
+| "Already in Knot" next to an item | Knot has a persona or prompt with that `id`, perhaps from another library | Expected, unless you copied an id; give your item a new UUID |
